@@ -1,1 +1,17 @@
-{"kelimeler": []}
+{
+ "kelimeler": [
+  {
+   "id": "cat",
+   "en": "cat",
+   "tur": "isim",
+   "tr": "kedi",
+   "hikaye": "Turuncu çizgili bir **kedi** yemyeşil bir halıya kurulmuş. Kuyruğunu bayrak gibi havaya kaldırmış, bıyıklarını oynatıp gülümsüyor. Ali onu görünce sesleniyor: \"Look, a cat!\"",
+   "ornek_en": "The cat has an orange tail.",
+   "ornek_tr": "Kedinin turuncu bir kuyruğu var.",
+   "sahne": "a ginger cat sleeping on a red cushion",
+   "parti": 1,
+   "sira": 1,
+   "resim": "resimler/cat.webp"
+  }
+ ]
+}

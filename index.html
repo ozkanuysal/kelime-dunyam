@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kelime Dünyam</title>
+<meta name="description" content="Resimli ve hikâyeli kartlarla temel İngilizce kelimeler.">
+<style>
+:root{
+  --bg:#0e1424; --kart:#18213a; --yuzey:#1f2a4a; --yazi:#e8ecf5; --soluk:#9aa6c4;
+  --vurgu:#7c9cff; --cizgi:#ffffff1a; --uyari:#ffb4a8;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--yazi);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  padding-block:max(16px,env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--vurgu);outline-offset:3px}
+.sayfa{max-width:340px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.ust{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ust h1{margin:0;font-size:18px;letter-spacing:.02em}
+.kucuk{background:transparent;border:1px solid var(--cizgi);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--soluk)}
+#anahtarKutu{background:var(--kart);border:1px solid var(--cizgi);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+#anahtarKutu p{margin:0}
+#anahtarForm{display:flex;gap:8px}
+#anahtarGiris{flex:1;min-width:0;background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:10px;padding:8px 10px;font:inherit}
+#anahtarForm button{background:var(--vurgu);color:var(--bg);border:0;border-radius:10px;padding:8px 14px;font-weight:600}
+#anahtarSil{background:transparent;color:var(--uyari);border:1px solid var(--cizgi);border-radius:10px;padding:6px 12px;align-self:flex-start}
+.not{margin:0;color:var(--uyari);font-size:14px}
+.sayac{display:flex;justify-content:space-between;font-size:13px;color:var(--soluk);font-variant-numeric:tabular-nums}
+.cubuk{height:6px;background:var(--cizgi);border-radius:4px;overflow:hidden}
+.cubuk i{display:block;height:100%;width:0;background:var(--vurgu);transition:width .4s}
+.sahne{display:block;width:100%;height:460px;perspective:1200px;background:none;border:0;padding:0;text-align:left;border-radius:18px}
+.kart{position:relative;display:block;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.kart.cevrik{transform:rotateY(180deg)}
+.yuz{position:absolute;inset:0;display:flex;flex-direction:column;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:18px;overflow:hidden;background:var(--kart);border:1px solid var(--cizgi);box-shadow:0 10px 30px #0006}
+.resim{display:flex;flex:1;min-height:0;align-items:center;justify-content:center;background:var(--yuzey)}
+.resim img{display:block;width:100%;height:100%;object-fit:cover}
+.kelime{display:block;padding:12px 12px 2px;text-align:center;font-size:34px;font-weight:700;letter-spacing:.01em}
+.ipucu{display:block;padding-bottom:12px;text-align:center;font-size:12px;color:var(--soluk)}
+.arka{transform:rotateY(180deg);padding:20px;gap:14px;overflow-y:auto}
+.etiket{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--soluk);margin-bottom:2px}
+.tr{display:block;font-size:26px;font-weight:700}
+.hikaye{display:block}
+.hikaye b{color:var(--vurgu)}
+.ornek{display:flex;flex-direction:column;background:var(--yuzey);border-radius:10px;padding:10px 12px}
+.ornek span{color:var(--soluk)}
+.dugmeler{display:flex;gap:8px}
+.dugmeler button{flex:1;padding:12px 4px;border-radius:12px;border:1px solid var(--cizgi);background:var(--kart);font-size:15px}
+.dugmeler .ana{background:var(--vurgu);border-color:var(--vurgu);color:var(--bg);font-weight:700}
+.dugmeler button:disabled{opacity:.5;cursor:default}
+.bitti{background:var(--kart);border:1px solid var(--cizgi);border-radius:18px;padding:28px 20px;text-align:center}
+.bitti h2{margin:0 0 8px;font-size:24px}
+.bitti p{margin:0;color:var(--soluk)}
+@media (prefers-reduced-motion:reduce){.kart,.cubuk i{transition:none}}
+</style>
+</head>
+<body>
+<div class="sayfa">
+  <header class="ust"><h1>Kelime Dünyam</h1><button class="kucuk" id="anahtarAc" type="button">Sahip girişi</button></header>
+  <div id="anahtarKutu" hidden>
+    <p>Bu bölüm site sahibi içindir. Ziyaretçiysen anahtara gerek yok: tiklerin bu cihazda kendiliğinden saklanır. Sahip, GitHub erişim anahtarını (token) girerse tikleri bütün cihazlarında ortak olur.</p>
+    <form id="anahtarForm"><input id="anahtarGiris" type="password" autocomplete="off" placeholder="github_pat_…" aria-label="GitHub erişim anahtarı"><button type="submit">Kaydet</button></form>
+    <p id="anahtarDurum"></p>
+    <button id="anahtarSil" type="button" hidden>Anahtarı bu cihazdan sil</button>
+  </div>
+  <p class="not" id="not" hidden></p>
+
+  <div class="sayac"><span id="konum">Yükleniyor…</span><span id="ogrenilen"></span></div>
+  <div class="cubuk"><i id="dolu"></i></div>
+
+  <div id="calisma" hidden>
+    <button class="sahne" id="sahne" type="button" aria-label="Kartı çevir">
+      <span class="kart" id="kart">
+        <span class="yuz on">
+          <span class="resim"><img id="resim" alt=""></span>
+          <span class="kelime" id="kelime" lang="en"></span>
+          <span class="ipucu">çevirmek için dokun</span>
+        </span>
+        <span class="yuz arka">
+          <span><span class="etiket">Türkçe</span><span class="tr" id="tr"></span></span>
+          <span><span class="etiket">Hikâye</span><span class="hikaye" id="hikaye"></span></span>
+          <span><span class="etiket">Örnek cümle</span><span class="ornek"><b id="ornekEn" lang="en"></b><span id="ornekTr"></span></span></span>
+        </span>
+      </span>
+    </button>
+    <div class="dugmeler" style="margin-top:12px">
+      <button id="onceki" type="button">← Önceki</button>
+      <button id="ogrendim" class="ana" type="button">Öğrendim ✓</button>
+      <button id="sonraki" type="button">Sonraki →</button>
+    </div>
+  </div>
+
+  <div class="bitti" id="bitti" hidden>
+    <h2>Hepsi bitti!</h2>
+    <p>Yeni parti için /kelime'ye "50 kelime daha ekle" de.</p>
+  </div>
+</div>
+
+<script src="kuyruk.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+
+/* ---------- Veri ---------- */
+var REPO="ozkanuysal/kelime-dunyam", DAL="tikler", API="https://api.github.com/repos/"+REPO+"/contents/tikler.json";
+var ANAHTAR="kelime-anahtar", YEREL="kelime-tikler-yerel";
+var kelimeler=[], tikler={}, tikSha=null, hazir=false, yaziyor=false, sonOkuma=0, simdiki=null;
+function notYaz(t){$("not").textContent=t;$("not").hidden=!t}
+function anahtar(){try{return localStorage.getItem(ANAHTAR)||""}catch(e){return ""}}
+var yerel={};
+try{yerel=JSON.parse(localStorage.getItem(YEREL)||"{}")||{}}catch(e){yerel={}}
+function aktif(){return anahtar()?tikler:yerel}
+function basliklar(){var h={"Accept":"application/vnd.github+json"},a=anahtar();if(a)h.Authorization="Bearer "+a;return h}
+function coz(b64){return JSON.parse(decodeURIComponent(escape(atob(String(b64).replace(/\s/g,"")))))}
+function kodla(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o,null,1)+"\n")))}
+
+// Kelimeler: sitedeki kelimeler.json. Tikler: reponun "tikler" dalındaki tikler.json (GitHub API ile okunur ve yazılır).
+function tikleriGetir(){
+  return fetch(API+"?ref="+DAL,{headers:basliklar(),cache:"no-store"}).then(function(r){
+    if(!r.ok)throw new Error(String(r.status));return r.json();
+  }).then(function(j){tikSha=j.sha;tikler=coz(j.content)||{};sonOkuma=Date.now()});
+}
+function tikHatasi(e){
+  var k=e&&e.message;
+  notYaz(k==="401"?"Anahtar geçersiz ya da süresi dolmuş. Sahip girişinden yenisini gir."
+    :k==="403"||k==="429"?"GitHub şu an tikleri vermiyor (istek sınırı). Biraz sonra yeniden dene."
+    :"Tikler okunamadı. Bağlantını kontrol et.");
+}
+fetch("kelimeler.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error(String(r.status));return r.json()}).then(function(v){
+  kelimeler=(v.kelimeler||[]).slice();hazir=true;goster(null,1);
+}).catch(function(){notYaz("Kelimeler yüklenemedi. Sayfayı yenile.");$("konum").textContent=""});
+if(anahtar())tikleriGetir().then(function(){if(hazir)goster(simdiki&&simdiki.id,0)},tikHatasi);
+document.addEventListener("visibilitychange",function(){
+  if(document.visibilityState==="visible"&&anahtar()&&!yaziyor&&Date.now()-sonOkuma>90000)
+    tikleriGetir().then(function(){if(hazir)goster(simdiki&&simdiki.id,0)},function(){});
+});
+
+/* ---------- Kart ---------- */
+function onYuzeDon(){
+  var k=$("kart");if(!k.classList.contains("cevrik"))return;
+  k.style.transition="none";k.classList.remove("cevrik");void k.offsetWidth;k.style.transition="";
+}
+// yon 0: aynı kelimede kal (hâlâ öğrenilmemişse), değilse sıradakine geç
+function goster(id,yon){
+  var t=aktif(),s;
+  if(yon===0){var ayni=kelimeler.filter(function(k){return k.id===id&&!t[k.id]})[0];s=ayni||Kuyruk.siradaki(kelimeler,t,id,1)}
+  else s=Kuyruk.siradaki(kelimeler,t,id,yon);
+  var p=Kuyruk.ilerleme(kelimeler,t);
+  $("ogrenilen").textContent=p.ogrenilen+" öğrenildi ✓";
+  $("dolu").style.width=(p.toplam?Math.round(100*p.ogrenilen/p.toplam):0)+"%";
+  simdiki=s;
+  $("calisma").hidden=!s;$("bitti").hidden=!!s||!p.toplam;
+  if(!s){$("konum").textContent=p.toplam?"":"Henüz kelime yok.";return}
+  $("konum").textContent="Kelime "+s.sira+" / "+p.toplam;
+  if((s.id!==$("kelime").dataset.id))onYuzeDon();
+  $("kelime").dataset.id=s.id;
+  var img=$("resim");img.hidden=false;img.alt=s.en;img.src=s.resim;
+  $("kelime").textContent=s.en;
+  $("tr").textContent=s.tr;
+  var h=$("hikaye");h.textContent="";
+  Kuyruk.hikayeParcalari(s.hikaye||"").forEach(function(p){
+    if(p.kalin){var b=document.createElement("b");b.textContent=p.metin;h.appendChild(b)}
+    else h.appendChild(document.createTextNode(p.metin));
+  });
+  $("ornekEn").textContent=s.ornek_en;$("ornekTr").textContent=s.ornek_tr;
+  var sonraki=Kuyruk.siradaki(kelimeler,t,s.id,1);
+  if(sonraki&&sonraki.id!==s.id)new Image().src=sonraki.resim;
+}
+$("resim").addEventListener("error",function(){this.hidden=true});
+$("sahne").addEventListener("click",function(){$("kart").classList.toggle("cevrik")});
+$("onceki").addEventListener("click",function(){if(simdiki)goster(simdiki.id,-1)});
+$("sonraki").addEventListener("click",function(){if(simdiki)goster(simdiki.id,1)});
+$("ogrendim").addEventListener("click",function(){if(simdiki)isaretle(simdiki.id)});
+
+function dugmeler(acik){["onceki","ogrendim","sonraki"].forEach(function(i){$(i).disabled=!acik})}
+function isaretle(id){
+  if(!anahtar()){
+    yerel[id]=true;
+    try{localStorage.setItem(YEREL,JSON.stringify(yerel));notYaz("")}catch(e){notYaz("Bu tarayıcı tikleri saklayamıyor. Gizli sekmedeysen normal sekmede aç.")}
+    goster(id,1);return;
+  }
+  if(yaziyor)return;
+  yaziyor=true;dugmeler(false);
+  function dene(kalan){
+    return tikleriGetir().then(function(){
+      var yeni=Object.assign({},tikler);yeni[id]=true;
+      return fetch(API,{method:"PUT",headers:basliklar(),body:JSON.stringify({message:"tik: "+id,content:kodla(yeni),sha:tikSha,branch:DAL})}).then(function(r){
+        if(r.status===409&&kalan>0)return dene(kalan-1);
+        if(!r.ok)throw new Error(String(r.status));
+        return r.json().then(function(j){tikSha=j.content.sha;tikler=yeni});
+      });
+    });
+  }
+  dene(1).then(function(){notYaz("");goster(id,1)},function(e){
+    var k=e&&e.message;
+    notYaz(k==="401"||k==="403"||k==="404"?"Tik kaydedilemedi: anahtar geçersiz ya da bu repoya yazma yetkisi yok.":"Tik kaydedilemedi. Bağlantını kontrol edip yeniden dene.");
+  }).then(function(){yaziyor=false;dugmeler(true)});
+}
+
+/* ---------- Anahtar ---------- */
+function anahtarDurum(){
+  var var_=!!anahtar();
+  $("anahtarAc").textContent=var_?"Sahip: açık":"Sahip girişi";
+  $("anahtarDurum").textContent=var_?"Bu cihazda anahtar kayıtlı. Tiklerin GitHub'a yazılır, bütün cihazlarında ortaktır.":"Anahtar yok. Tiklerin bu cihazda saklanır.";
+  $("anahtarSil").hidden=!var_;
+}
+$("anahtarAc").addEventListener("click",function(){$("anahtarKutu").hidden=!$("anahtarKutu").hidden;if(!$("anahtarKutu").hidden)$("anahtarGiris").focus()});
+$("anahtarForm").addEventListener("submit",function(e){
+  e.preventDefault();var a=$("anahtarGiris").value.trim();if(!a)return;
+  try{localStorage.setItem(ANAHTAR,a)}catch(x){$("anahtarDurum").textContent="Bu tarayıcı anahtarı saklayamıyor.";return}
+  $("anahtarGiris").value="";anahtarDurum();$("anahtarDurum").textContent="Anahtar sınanıyor…";
+  tikleriGetir().then(function(){notYaz("");$("anahtarDurum").textContent="Anahtar kaydedildi. Tik atabilirsin.";if(hazir)goster(simdiki&&simdiki.id,0)},function(x){
+    if(x&&x.message==="401"){try{localStorage.removeItem(ANAHTAR)}catch(y){}anahtarDurum();$("anahtarDurum").textContent="Anahtar geçersiz, kaydedilmedi.";}
+    else $("anahtarDurum").textContent="Anahtar kaydedildi ama şu an sınanamadı.";
+  });
+});
+$("anahtarSil").addEventListener("click",function(){try{localStorage.removeItem(ANAHTAR)}catch(x){}notYaz("");anahtarDurum();if(hazir)goster(simdiki&&simdiki.id,0)});
+anahtarDurum();
+})();
+</script>
+</body>
+</html>
