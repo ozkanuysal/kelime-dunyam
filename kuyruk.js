@@ -36,7 +36,24 @@
     }).filter(function (p) { return p.metin !== ""; });
   }
 
-  var Kuyruk = { siradaki: siradaki, ilerleme: ilerleme, hikayeParcalari: hikayeParcalari };
+  // Sahip tikini yazar. durum: {tikler, sha}. g: {oku, yaz, bekle, deneme}.
+  // Elde sha varsa okumadan yazar (son yazmanın sha'sı en tazesidir); 409'da bekleyip yeniden okur.
+  function tikEkle(durum, id, g) {
+    function adim(d, kalan) {
+      var yeni = Object.assign({}, d.tikler); yeni[id] = true;
+      return g.yaz(yeni, d.sha).then(function (r) {
+        if (r.status === 409 && kalan > 0) return g.bekle().then(g.oku).then(function (t) { return adim(t, kalan - 1); });
+        if (!(r.status >= 200 && r.status < 300)) throw new Error(String(r.status));
+        return { tikler: yeni, sha: r.sha };
+      });
+    }
+    return durum.sha ? adim(durum, g.deneme) : g.oku().then(function (t) { return adim(t, g.deneme); });
+  }
+
+  // GET /repos/{repo} yanıtında anahtarın yazma yetkisi var mı
+  function yazabilir(repo) { return !!(repo && repo.permissions && repo.permissions.push); }
+
+  var Kuyruk = { siradaki: siradaki, ilerleme: ilerleme, hikayeParcalari: hikayeParcalari, tikEkle: tikEkle, yazabilir: yazabilir };
   if (typeof module !== "undefined" && module.exports) module.exports = Kuyruk;
   else kok.Kuyruk = Kuyruk;
 })(this);

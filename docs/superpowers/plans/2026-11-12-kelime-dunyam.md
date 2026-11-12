@@ -24,7 +24,7 @@
 - Image service: AI Horde, `https://aihorde.net/api/v2`, header `apikey: 0000000000`, header `Client-Agent: kelime-kart:1.0:anonymous`. Images are 512×512 WebP and are stored as returned, with no resize. A watermarked result counts as a failure.
 - The site never shows a half-finished batch. Commit cards locally as they are made and push only when all 50 of the batch are in.
 - Commands get short timeouts of 10–60 s. Long loops run in the background and are polled briefly.
-- Windows programs are not started from WSL, except headless Edge for screenshots. That use was verified on 2026-10-23.
+- Windows programs are not started from WSL, except a headless browser for screenshots.
 
 ## Review Focus
 
@@ -199,10 +199,10 @@ Run `kelime.py ekle` with a `cat` card file (`parti: 1`), using the image from T
 
 - [ ] **Step 3: Check the script syntax and the page in a browser**
 
-1. Run: `sed -n '/<script>/,/<\/script>/p' index.html | sed '1d;$d' > /tmp/claude-1000/-mnt-c-Users-ouysal/a351dbda-ce7a-4444-a799-cfb7945d4abf/scratchpad/kelime/sayfa.js && node --check /tmp/claude-1000/-mnt-c-Users-ouysal/a351dbda-ce7a-4444-a799-cfb7945d4abf/scratchpad/kelime/sayfa.js`
+1. Run: `sed -n '/<script>/,/<\/script>/p' index.html | sed '1d;$d' > <scratchpad>/sayfa.js && node --check <scratchpad>/sayfa.js`
    Expected: no output.
 2. Serve the repo with `python3 -m http.server 8765 --bind 127.0.0.1`. Run it with `run_in_background`, from the repo dir.
-3. Take headless Edge screenshots of `http://localhost:8765/` at `--window-size=412,900` and `1280,900`. Use the command from the archify memory, run from `/mnt/c/Users/ouysal`, with the screenshot under `C:\Users\ouysal\AppData\Local\Temp\kelime\`. If no file appears, look under `C:\VTRoot` (COMODO). Read the PNGs.
+3. Take headless Edge screenshots of `http://localhost:8765/` at `--window-size=412,900` and `1280,900`. Use a local headless browser and write the screenshot to a temp folder. Read the PNGs.
 4. To see the back face, write a temp copy `_arka.html` in the repo with the card class preset to flipped. Screenshot it, then delete it.
 
 Check list:
@@ -265,7 +265,7 @@ Expected: valid front matter with `name: kelime`. Then run `ozet` once. It fails
 
 - Follow the spec's selection rules: A1–A2, drawable in one scene, mostly nouns plus about 12 verbs and 8 adjectives, shuffled.
 - Run `kelime.py kontrol` on all 50; expected: only `cat`.
-- Save the list as `/tmp/claude-1000/-mnt-c-Users-ouysal/a351dbda-ce7a-4444-a799-cfb7945d4abf/scratchpad/kelime/parti1.tsv` with lines of `id<TAB>sahne`.
+- Save the list as `<scratchpad>/parti1.tsv` with lines of `id<TAB>sahne`.
 
 - [ ] **Step 2: Generate the images in the background**
 

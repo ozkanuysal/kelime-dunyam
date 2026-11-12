@@ -49,3 +49,52 @@ test("hikayeParcalari: kapanmamış ** düz kalır", () => {
     { metin: "b", kalin: false },
   ]);
 });
+
+// Sahip tiki: taze sha ile doğrudan yazar, yalnızca 409'da yeniden okur
+const { tikEkle, yazabilir } = require("../kuyruk.js");
+function sahte(yanitlar, okunan) {
+  const g = { okuma: 0, yazilan: [], bekle: () => Promise.resolve(), deneme: 3 };
+  g.oku = () => { g.okuma++; return Promise.resolve(okunan); };
+  g.yaz = (t, sha) => { g.yazilan.push(sha); return Promise.resolve(yanitlar.shift()); };
+  return g;
+}
+
+test("tikEkle: elde sha varsa okumadan yazar", async () => {
+  const g = sahte([{ status: 200, sha: "s2" }], null);
+  const d = await tikEkle({ tikler: { a: true }, sha: "s1" }, "b", g);
+  assert.equal(g.okuma, 0);
+  assert.deepEqual(g.yazilan, ["s1"]);
+  assert.deepEqual(d, { tikler: { a: true, b: true }, sha: "s2" });
+});
+
+test("tikEkle: sha yoksa önce okur", async () => {
+  const g = sahte([{ status: 201, sha: "s3" }], { tikler: {}, sha: "s1" });
+  const d = await tikEkle({ tikler: {}, sha: null }, "a", g);
+  assert.equal(g.okuma, 1);
+  assert.deepEqual(d, { tikler: { a: true }, sha: "s3" });
+});
+
+test("tikEkle: 409'da yeniden okuyup okunan tiklerin üstüne yazar", async () => {
+  const g = sahte([{ status: 409 }, { status: 200, sha: "s9" }], { tikler: { x: true }, sha: "s5" });
+  const d = await tikEkle({ tikler: {}, sha: "eski" }, "a", g);
+  assert.deepEqual(g.yazilan, ["eski", "s5"]);
+  assert.deepEqual(d, { tikler: { x: true, a: true }, sha: "s9" });
+});
+
+test("tikEkle: deneme bitince 409 hatası", async () => {
+  const g = sahte([{ status: 409 }, { status: 409 }, { status: 409 }, { status: 409 }], { tikler: {}, sha: "s" });
+  await assert.rejects(tikEkle({ tikler: {}, sha: "s0" }, "a", g), { message: "409" });
+  assert.equal(g.yazilan.length, 4);
+});
+
+test("tikEkle: 401 tekrar denenmez", async () => {
+  const g = sahte([{ status: 401 }], null);
+  await assert.rejects(tikEkle({ tikler: {}, sha: "s0" }, "a", g), { message: "401" });
+  assert.equal(g.yazilan.length, 1);
+});
+
+test("yazabilir: yalnızca push yetkisi varsa true", () => {
+  assert.equal(yazabilir({ permissions: { push: true } }), true);
+  assert.equal(yazabilir({ permissions: { push: false, pull: true } }), false);
+  assert.equal(yazabilir({}), false);
+});

@@ -126,7 +126,7 @@ Bütün resimlerde aynı çizim tarzı kullanılır. Tarzı builder seçer, koyu
 - Kullanıcının GitHub token'ı asla istenmez, okunmaz ve yazılmaz.
 - Commit iletilerine `Co-Authored-By` ya da Claude adı geçen satır eklenmez.
 - Push'tan sonra site yaklaşık 1 dakikada güncellenir. Skill "yüklendi, 1 dakika içinde görünür" der.
-- Çalışma ortamı WSL'dir. Windows programları WSL'den başlatılmaz (COMODO korumalı alanı).
+- Çalışma ortamı WSL'dir. Windows programları WSL'den başlatılmaz.
 - Site telefonda da düzgün çalışmalıdır. Kullanıcı tikleri hem telefondan hem bilgisayardan atar.
 - Komutlara kısa timeout verilir. Uzun resim üretimi parçalara bölünür.
 
