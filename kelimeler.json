@@ -1689,6 +1689,84 @@
    "parti": 3,
    "sira": 130,
    "resim": "resimler/turtle.webp"
+  },
+  {
+   "id": "owl",
+   "en": "owl",
+   "tur": "isim",
+   "tr": "baykuş",
+   "hikaye": "Owl \"aul\" diye okunur, avlu gibi. Gece köyün avlusundaki ağaçta bir **baykuş** oturur, iri gözleriyle seni izler. Avlu → aul → owl.",
+   "ornek_en": "The owl sleeps in the day.",
+   "ornek_tr": "Baykuş gündüz uyur.",
+   "sahne": "a brown owl sitting on a branch at night under the moon",
+   "parti": 3,
+   "sira": 131,
+   "resim": "resimler/owl.webp"
+  },
+  {
+   "id": "narrow",
+   "en": "narrow",
+   "tur": "sifat",
+   "tr": "dar",
+   "hikaye": "Narrow \"nerou\" diye okunur. Sokak o kadar **dar** ki şişman kedi takılır kalır: \"Nereye sığacağım ben?\" Nere-ou → narrow.",
+   "ornek_en": "This street is very narrow.",
+   "ornek_tr": "Bu sokak çok dar.",
+   "sahne": "a very narrow street between tall colorful houses",
+   "parti": 3,
+   "sira": 132,
+   "resim": "resimler/narrow.webp"
+  },
+  {
+   "id": "squirrel",
+   "en": "squirrel",
+   "tur": "isim",
+   "tr": "sincap",
+   "hikaye": "Squirrel \"skvırıl\" diye okunur. **Sincap** fındıkları yanaklarına doldurur, kuyruğu kıvır kıvır ağaca tırmanır. S-kvırıl → squirrel.",
+   "ornek_en": "The squirrel eats a nut.",
+   "ornek_tr": "Sincap bir fındık yiyor.",
+   "sahne": "a squirrel holding an acorn on a tree branch",
+   "parti": 3,
+   "sira": 133,
+   "resim": "resimler/squirrel.webp"
+  },
+  {
+   "id": "nest",
+   "en": "nest",
+   "tur": "isim",
+   "tr": "yuva",
+   "hikaye": "Nest \"nest\" diye okunur. Kuşlar **yuvayı** kurarken anne kuş sorar: \"Ne istiyorsun, saman mı, dal mı?\" Ne-st → nest.",
+   "ornek_en": "There are eggs in the nest.",
+   "ornek_tr": "Yuvada yumurtalar var.",
+   "sahne": "a bird nest with three blue eggs on a branch",
+   "parti": 3,
+   "sira": 134,
+   "resim": "resimler/nest.webp"
+  },
+  {
+   "id": "anchor",
+   "en": "anchor",
+   "tur": "isim",
+   "tr": "çapa",
+   "hikaye": "Anchor \"enkır\" diye okunur. Gemi limana yaklaşınca kaptan bağırır: \"En kıyıda dur, **çapayı** at!\" En-kır → anchor.",
+   "ornek_en": "The ship drops its anchor.",
+   "ornek_tr": "Gemi çapasını atıyor.",
+   "sahne": "a heavy iron ship anchor lying on the sand",
+   "parti": 3,
+   "sira": 135,
+   "resim": "resimler/anchor.webp"
+  },
+  {
+   "id": "envelope",
+   "en": "envelope",
+   "tur": "isim",
+   "tr": "zarf",
+   "hikaye": "Envelope \"envıloup\" diye okunur. Postacının çantasında envai çeşit **zarf** var: mavi, beyaz, mühürlü. Envai → envelope.",
+   "ornek_en": "Put the letter in the envelope.",
+   "ornek_tr": "Mektubu zarfa koy.",
+   "sahne": "a closed white envelope with a red wax seal",
+   "parti": 3,
+   "sira": 136,
+   "resim": "resimler/envelope.webp"
   }
  ]
 }
