@@ -1871,6 +1871,84 @@
    "parti": 3,
    "sira": 144,
    "resim": "resimler/melt.webp"
+  },
+  {
+   "id": "skate",
+   "en": "skate",
+   "tur": "eylem",
+   "tr": "paten kaymak",
+   "hikaye": "Skate \"skeyt\" diye okunur. Buz pistine girmeden önce kayıt yaptırırsın, sonra bütün gün **paten kayarsın**. Kayıt → keyt → skate.",
+   "ornek_en": "He skates on the ice.",
+   "ornek_tr": "Buzda paten kayıyor.",
+   "sahne": "a boy ice skating on a frozen lake in winter",
+   "parti": 3,
+   "sira": 145,
+   "resim": "resimler/skate.webp"
+  },
+  {
+   "id": "feed",
+   "en": "feed",
+   "tur": "eylem",
+   "tr": "beslemek, yem vermek",
+   "hikaye": "Feed \"fiid\" diye okunur. Bahçeye fidan diker, her gün sularsın; göldeki ördekleri de ekmekle **beslersin**, hepsi büyür. Fidan → fiid → feed.",
+   "ornek_en": "She feeds the ducks.",
+   "ornek_tr": "Ördekleri besliyor.",
+   "sahne": "a girl feeding bread to ducks at a pond",
+   "parti": 3,
+   "sira": 146,
+   "resim": "resimler/feed.webp"
+  },
+  {
+   "id": "curly",
+   "en": "curly",
+   "tur": "sifat",
+   "tr": "kıvırcık",
+   "hikaye": "Curly \"körli\" diye okunur. Kuaför **kıvırcık** saçların içinde tarağını kaybeder, kör gibi el yordamıyla arar. Kör-li → curly.",
+   "ornek_en": "She has curly hair.",
+   "ornek_tr": "Saçları kıvırcık.",
+   "sahne": "a smiling girl with very curly red hair",
+   "parti": 3,
+   "sira": 147,
+   "resim": "resimler/curly.webp"
+  },
+  {
+   "id": "octopus",
+   "en": "octopus",
+   "tur": "isim",
+   "tr": "ahtapot",
+   "hikaye": "Octopus \"oktıpus\" diye okunur. Okto \"sekiz\" demek: sekiz kollu **ahtapot** denizin dibinde pusuya yatar. Okto-pusu → octopus.",
+   "ornek_en": "The octopus has eight arms.",
+   "ornek_tr": "Ahtapotun sekiz kolu var.",
+   "sahne": "a purple octopus with eight long arms under the sea",
+   "parti": 3,
+   "sira": 148,
+   "resim": "resimler/octopus.webp"
+  },
+  {
+   "id": "parrot",
+   "en": "parrot",
+   "tur": "isim",
+   "tr": "papağan",
+   "hikaye": "Parrot \"perıt\" diye okunur, yazılışı ise pa-rot. Korsanın omzundaki **papağan** gemiye yol gösterir: \"Papağan rotayı bilir!\" Pa + rota → parrot.",
+   "ornek_en": "The parrot can talk.",
+   "ornek_tr": "Papağan konuşabilir.",
+   "sahne": "a colorful green and red parrot sitting on a branch",
+   "parti": 3,
+   "sira": 149,
+   "resim": "resimler/parrot.webp"
+  },
+  {
+   "id": "surf",
+   "en": "surf",
+   "tur": "eylem",
+   "tr": "sörf yapmak",
+   "hikaye": "Surf \"sörf\" diye okunur; Türkçeye olduğu gibi geçmiştir. Dev dalga gelince tahtana çıkar, dalganın tepesinde **sörf yaparsın**. Sörf → surf.",
+   "ornek_en": "He surfs on a big wave.",
+   "ornek_tr": "Büyük bir dalgada sörf yapıyor.",
+   "sahne": "a surfer riding a big blue ocean wave on a surfboard",
+   "parti": 3,
+   "sira": 150,
+   "resim": "resimler/surf.webp"
   }
  ]
 }
