@@ -133,7 +133,7 @@ function tikHatasi(e){
     :"Tikler okunamadı. Bağlantını kontrol et.");
 }
 fetch("kelimeler.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error(String(r.status));return r.json()}).then(function(v){
-  kelimeler=(v.kelimeler||[]).slice();hazir=true;goster(null,1);
+  kelimeler=Kuyruk.karistir(v.kelimeler||[],Math.random);hazir=true;goster(null,1);
 }).catch(function(){notYaz("Kelimeler yüklenemedi. Sayfayı yenile.");$("konum").textContent=""});
 if(anahtar())tikleriGetir().then(function(){if(hazir)goster(simdiki&&simdiki.id,0)},tikHatasi);
 document.addEventListener("visibilitychange",function(){

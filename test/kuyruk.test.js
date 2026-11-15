@@ -98,3 +98,20 @@ test("yazabilir: yalnızca push yetkisi varsa true", () => {
   assert.equal(yazabilir({ permissions: { push: false, pull: true } }), false);
   assert.equal(yazabilir({}), false);
 });
+
+// Her açılışta rastgele sıra: sira 1..n yeniden dağıtılır, girdi değişmez
+const { karistir } = require("../kuyruk.js");
+
+test("karistir: aynı kelimeler, sira 1..n, girdi bozulmaz", () => {
+  const giris = [{ id: "a", sira: 1 }, { id: "b", sira: 2 }, { id: "c", sira: 3 }, { id: "d", sira: 4 }];
+  const k = karistir(giris, () => 0);
+  assert.deepEqual(k.map((x) => x.id).sort(), ["a", "b", "c", "d"]);
+  assert.deepEqual(k.map((x) => x.sira).sort(), [1, 2, 3, 4]);
+  assert.deepEqual(giris.map((x) => x.sira), [1, 2, 3, 4]);
+});
+
+test("karistir: sırayı rastgele sayıya göre değiştirir", () => {
+  const k = karistir(K, () => 0); // Fisher–Yates, hep 0: a b c -> b c a
+  assert.deepEqual(k.slice().sort((x, y) => x.sira - y.sira).map((x) => x.id), ["b", "c", "a"]);
+  assert.equal(siradaki(k, {}, null, 1).id, "b");
+});

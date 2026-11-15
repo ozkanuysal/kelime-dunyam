@@ -20,6 +20,16 @@
     return sonra.length ? sonra[0] : kalan[0];
   }
 
+  // Kelimelerin kopyasını Fisher–Yates ile karıştırıp sira'yı 1..n yeniden verir; girdi değişmez.
+  function karistir(kelimeler, rastgele) {
+    var k = kelimeler.map(function (x) { return Object.assign({}, x); });
+    for (var i = k.length - 1; i > 0; i--) {
+      var j = Math.floor(rastgele() * (i + 1)), g = k[i]; k[i] = k[j]; k[j] = g;
+    }
+    k.forEach(function (x, n) { x.sira = n + 1; });
+    return k;
+  }
+
   function ilerleme(kelimeler, tikler) {
     return {
       ogrenilen: kelimeler.filter(function (k) { return tikler[k.id]; }).length,
@@ -53,7 +63,7 @@
   // GET /repos/{repo} yanıtında anahtarın yazma yetkisi var mı
   function yazabilir(repo) { return !!(repo && repo.permissions && repo.permissions.push); }
 
-  var Kuyruk = { siradaki: siradaki, ilerleme: ilerleme, hikayeParcalari: hikayeParcalari, tikEkle: tikEkle, yazabilir: yazabilir };
+  var Kuyruk = { siradaki: siradaki, karistir: karistir, ilerleme: ilerleme, hikayeParcalari: hikayeParcalari, tikEkle: tikEkle, yazabilir: yazabilir };
   if (typeof module !== "undefined" && module.exports) module.exports = Kuyruk;
   else kok.Kuyruk = Kuyruk;
 })(this);
